@@ -1,0 +1,40 @@
+für die Mysql Connection: permission gehen!
+
+SQL FOREIN KEY:
+
+
+CREATE TABLE vorfall (
+  id int(11) NOT NULL,
+  datum date DEFAULT NULL,
+  uhrzeit varchar(30) DEFAULT NULL,
+  info varchar(50) DEFAULT NULL,
+  kollege_id int(11) DEFAULT NULL,
+  vergehen_id int(11) DEFAULT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (kollege_id) REFERENCES kollege (id),
+  FOREIGN KEY (vergehen_id) REFERENCES vergehen (id)
+)
+
+//***************   One to Many Beispiel 1 boook has more Autor    *****************************
+
+CREATE TABLE dbo.Book(
+Pk_Book_Id INT PRIMARY KEY,
+Name VARCHAR(255),
+ISBN VARCHAR(255));
+
+CREATE TABLE dbo.Author(
+Pk_Author_Id INT PRIMARY KEY,
+FullName     VARCHAR(255),
+MobileNo     CHAR(10),
+Fk_Book_Id   INT FOREIGN KEY REFERENCES Book(Pk_Book_Id));
+
+INSERT INTO Book VALUES (1, 'Let is Snow', 'ISBN3030303');
+INSERT INTO Book VALUES (2, 'Three Cups of Tea','ISBN638242');
+
+INSERT INTO dbo.Author VALUES(100,'John Green','30303',1);
+INSERT INTO dbo.Author VALUES(101,'Maureen Johnson','4343',1);
+INSERT INTO dbo.Author VALUES(102,'Lauren Myracle','76665',1);
+INSERT INTO dbo.Author VALUES(103,'Greg Mortenson','6434',2);
+INSERT INTO dbo.Author VALUES(104,'David Oliver Relin','72322',2);
+
+//***************  **************** *****************************

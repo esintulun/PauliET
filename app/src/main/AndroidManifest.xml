@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.esintulun.pauli">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/rotelampe2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.example.esintulun.pauli.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.esintulun.pauli.LoginActivity" />
+        <activity android:name="com.example.esintulun.pauli.VergehenActivity" />
+        <activity android:name="com.example.esintulun.pauli.KlasseActivity"
+
+            />
+        <activity android:name="com.example.esintulun.pauli.KlasseActivityMitCBox" />
+        <activity android:name=".VorfaelleTable" />
+        <activity
+            android:name="com.example.esintulun.pauli.PauseActivity"
+            android:label="Pause"
+            android:noHistory="true"
+            android:parentActivityName="com.example.esintulun.pauli.MainActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+    </application>
+
+</manifest>
