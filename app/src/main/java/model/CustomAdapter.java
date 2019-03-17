@@ -69,7 +69,7 @@ public class CustomAdapter extends BaseAdapter {
             if (convertView == null) {
                 holder = new ViewHolder(); LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.model, null, true);
+                convertView = inflater.inflate(R.layout.schuelermitcheckbox, null, true);
 
                 holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
                 holder.tvName = (TextView) convertView.findViewById(R.id.nameTxt);

@@ -1,5 +1,6 @@
 package com.example.esintulun.pauli;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ public class KlasseFragmentMitCBox extends Fragment {
         private CustomAdapter customAdapter;
 
 
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +36,6 @@ public class KlasseFragmentMitCBox extends Fragment {
             modelArrayList = getModel(false);
             //customAdapter = new CustomAdapterBack(getContext(),modelArrayList);
             customAdapter = new CustomAdapter(getContext(),  modelArrayList);
-
-
             lv.setAdapter(customAdapter);
             //lv.setAdapter(customAdapter);
 
@@ -46,8 +46,7 @@ public class KlasseFragmentMitCBox extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-
-                    final StringBuilder sb = new StringBuilder();
+                    final StringBuilder schueler = new StringBuilder();
                     Log.i("adapter: count: ", "--"+customAdapter.getCount());
                     //Intent intent = new Intent(getActivity(), VorfaelleListView.class);
                     //Intent intent = new Intent(getActivity(), SchuelerVorfallInfo.class);
@@ -57,10 +56,26 @@ public class KlasseFragmentMitCBox extends Fragment {
 
                         if(((SchuelerMitCheck)(customAdapter.getItem(i))).isChecked()){
                             String name = ((SchuelerMitCheck)(customAdapter.getItem(i))).getSchuelerName();
-                            sb.append(" " + name);
+                            schueler.append(" " + name);
 
                             customAdapter.getName();
                             //intent.putExtra("name", sb.toString());
+
+                            Log.d("klasse: ", "klasseMitCheck Fragment  " + schueler.toString()); // ok
+                            String vergehensTitle = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+                            Intent schuelerVergehen = new Intent(getActivity(), SchuelerVergehenInfo.class);
+                            schuelerVergehen.putExtra("schuelername", schueler.toString());
+                            schuelerVergehen.putExtra("vergehenstitel", vergehensTitle);
+
+                            Log.d("klasse: ", "klasseMitCheck Fragment  " + schueler + "_" + vergehensTitle); // ok
+
+
+                            //vorfaelleListView.putExtra("name", nameExtra);
+                            //vorfaelleListView.putExtra("vorfall", vorfall);
+                            //vorfaelleListView.putExtra("merkblatt", schuelerMerkblatt);
+                            startActivity(schuelerVergehen);
+
+
                         }
                     }
                    // startActivity(intent);
@@ -108,8 +123,8 @@ public class KlasseFragmentMitCBox extends Fragment {
 
         private ArrayList<SchuelerMitCheck> getModel(boolean isSelect){
             ArrayList<SchuelerMitCheck> list = new ArrayList<>();
-            for(int i = 0; i < 17; i++){
 
+            for(int i = 0; i < 17; i++){
                 SchuelerMitCheck model = new SchuelerMitCheck();
                 model.setChecked(isSelect);
                 model.setSchuelerName(getSchuelerName().get(i));

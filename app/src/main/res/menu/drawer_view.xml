@@ -3,14 +3,34 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_start"
+            android:icon="@android:drawable/star_on"
+            android:title="Start" />
+
+        <item
+            android:id="@+id/nav_klassen"
+            android:icon="@drawable/world"
+            android:title="Klassen" />
+
+        <item
             android:id="@+id/nav_schuelerVorfaelle"
             android:icon="@drawable/blume"
             android:title="Vorfalle Bearbeiten" />
 
         <item
-            android:id="@+id/nav_start"
-            android:icon="@drawable/world"
-            android:title="Start" />
+            android:id="@+id/nav_camera"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="Aufgabezettel" />
+
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/leiter"
+            android:title="Statistik" />
+
+        <item
+            android:id="@+id/nav_mailsend"
+            android:icon="@android:drawable/sym_action_email"
+            android:title="Mail senden" />
 
     </group>
 

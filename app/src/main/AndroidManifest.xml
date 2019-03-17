@@ -6,6 +6,21 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="26" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="26" />
+
+    <uses-permission-sdk-23
+        android:name="android.permission.CAMERA"
+        android:maxSdkVersion="26" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/rotelampe2"
@@ -13,27 +28,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.esintulun.pauli.MainActivity">
+        <activity android:name=".SchuelerVergehenDBDaten"></activity>
+        <activity android:name=".Camera2" />
+        <activity android:name=".EmailSendActivity" />
+        <activity android:name=".KlassenActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.esintulun.pauli.LoginActivity" />
-        <activity android:name="com.example.esintulun.pauli.VergehenActivity" />
-        <activity android:name="com.example.esintulun.pauli.KlasseActivity"
 
-            />
-        <activity android:name="com.example.esintulun.pauli.KlasseActivityMitCBox" />
-        <activity android:name=".VorfaelleTable" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".VergehenActivity" />
+        <activity android:name=".SchuelerVergehenInfo" />
+        <activity android:name=".KlasseActivity" />
+        <activity android:name=".KlasseActivityMitCBox" />
+        <activity android:name=".VorfaelleTableActivity" />
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".CameraTest" />
+        <activity android:name=".Cameratest2Activity" />
+        <activity android:name=".SendMailActivity" />
         <activity
-            android:name="com.example.esintulun.pauli.PauseActivity"
+            android:name=".PauseActivity"
             android:label="Pause"
             android:noHistory="true"
-            android:parentActivityName="com.example.esintulun.pauli.MainActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

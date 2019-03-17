@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class SchuelerVorfaelle {
 
-    public SchuelerVorfallData[] getInvoices() {
+    public SchuelerVorfallRow[] getVorfaelle() {
 
-        //TODO Daten aus der DB
+        //TODO Daten sollen aus der DB eingelesen werden
 
-        SchuelerVorfallData[] data = new SchuelerVorfallData[7];
+        SchuelerVorfallRow[] vorfaelle = new SchuelerVorfallRow[12];
 
-        for(int i = 0; i < 7; i ++) {
+        for(int i = 0; i < 12; i ++) {
 
-            SchuelerVorfallData row = new SchuelerVorfallData();
+            SchuelerVorfallRow row = new SchuelerVorfallRow();
 
             //row.id = (i+1);
             row.id = "1";
@@ -21,18 +21,18 @@ public class SchuelerVorfaelle {
             row.info = "Entschuldigung ist nicht wahrhaftig";
 
             Kollege kollege = new Kollege();
-            kollege.setName("mitat");
+            kollege.setName("Akgün");
             row.kollegeName = kollege.getName();
 
 
             Vergehen vergehen = new Vergehen("testErstmal");
-            vergehen.setTitel("Aufgabe gemacht");
+            vergehen.setTitel("Aufgabe nicht gemacht");
             row.vergehenTitel = vergehen.getTitel();
-            data[i] = row;
+            vorfaelle[i] = row;
 
         }
 
-        return data;
+        return vorfaelle;
 
 
 

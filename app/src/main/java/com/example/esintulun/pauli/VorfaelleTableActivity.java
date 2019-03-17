@@ -20,11 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import model.SchuelerVorfaelle;
-import model.SchuelerVorfallData;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_GO;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
+import model.SchuelerVorfallRow;
 
-public class VorfaelleTable extends AppCompatActivity {
+import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
+
+public class VorfaelleTableActivity extends AppCompatActivity {
 
     TableLayout tableLayout;
     ProgressDialog mProgressBar;
@@ -36,11 +36,10 @@ public class VorfaelleTable extends AppCompatActivity {
         tableLayout = findViewById(R.id.tlSchlVorfaelle);
         mProgressBar = new ProgressDialog(this);
         //erzeugeTableRowBeispiel1();
-
         // setup the table
         tableLayout = findViewById(R.id.tlSchlVorfaelle);
         tableLayout.setFocusableInTouchMode(true);
-        //tableLayout.setStretchAllColumns(true);
+        tableLayout.setStretchAllColumns(true);
         startLoadData();
         loadData();
         //createTableRow(1);
@@ -117,7 +116,7 @@ public class VorfaelleTable extends AppCompatActivity {
     public void startLoadData() {
 
         mProgressBar.setCancelable(false);
-        mProgressBar.setMessage("Fetching Invoices..");
+        mProgressBar.setMessage("Vorfaelle wird erstellt..");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressBar.show();
         new LoadDataTask().execute(0);
@@ -132,14 +131,13 @@ public class VorfaelleTable extends AppCompatActivity {
         int bottomRowMargin = 0;
 
         int textSize = 0, smallTextSize = 0, mediumTextSize = 0;
-
         textSize = (int) getResources().getDimension(R.dimen.font_size_verysmall);
         smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
         mediumTextSize = (int) getResources().getDimension(R.dimen.font_size_medium);
 
-        SchuelerVorfaelle invoices = new SchuelerVorfaelle();
+        SchuelerVorfaelle vorfall = new SchuelerVorfaelle();
 
-        SchuelerVorfallData[] data = invoices.getInvoices();
+        SchuelerVorfallRow[] data = vorfall.getVorfaelle();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy");
         int rows = data.length;
         //getSupportActionBar().setTitle("Schueler (" + String.valueOf(rows) + ")");  // !!!!!
@@ -150,18 +148,13 @@ public class VorfaelleTable extends AppCompatActivity {
         // -1 means heading row
         for (int i = -1; i < rows; i++) {
 
-            SchuelerVorfallData row = null;
-
+            SchuelerVorfallRow row = null;
             if (i > -1)
                 row = data[i];
             else {
-
                 textSpacer = new TextView(this);
                 textSpacer.setText("++");
             }
-
-            // data id
-
 
             // Column 1 ->  Id
             final TextView tvId = new TextView(this);
@@ -171,13 +164,13 @@ public class VorfaelleTable extends AppCompatActivity {
 
             if (i == -1) {
                 tvId.setText("Id");
-                tvId.setBackgroundColor(Color.parseColor("#D32F2F"));
+                tvId.setBackgroundColor(Color.parseColor("#e6198b"));
                 tvId.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tvId.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
                 tvId.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                 tvId.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                tvId.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvId.setBackgroundColor(Color.parseColor("#ee97c7"));
                 tvId.setTextColor(Color.parseColor("#000000"));
                 tvId.setText(row.id);
             }
@@ -187,16 +180,17 @@ public class VorfaelleTable extends AppCompatActivity {
             tvDatum.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvDatum.setGravity(Gravity.CENTER);
             tvDatum.setPadding(5, 15, 0, 15);
+
             if (i == -1) {
                 tvDatum.setText("Datum");
-                tvDatum.setBackgroundColor(Color.parseColor("#D32F2F"));
+                tvDatum.setBackgroundColor(Color.parseColor("#e6198b"));
                 tvDatum.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tvDatum.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
 
                 tvDatum.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                 tvDatum.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                tvDatum.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvDatum.setBackgroundColor(Color.parseColor("#ee97c7"));
                 tvDatum.setTextColor(Color.parseColor("#000000"));
                 tvDatum.setText(dateFormat.format(row.datum));
             }
@@ -206,72 +200,67 @@ public class VorfaelleTable extends AppCompatActivity {
             tvUhrzeit.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvUhrzeit.setGravity(Gravity.CENTER);
             tvUhrzeit.setPadding(5, 15, 0, 15);
+
             if (i == -1) {
                 tvUhrzeit.setText("Uhrzeit");
-                tvUhrzeit.setBackgroundColor(Color.parseColor("#D32F2F"));
+                tvUhrzeit.setBackgroundColor(Color.parseColor("#e6198b"));
                 tvUhrzeit.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tvUhrzeit.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
 
-                tvUhrzeit.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
+                tvUhrzeit.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tvUhrzeit.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                tvUhrzeit.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvUhrzeit.setBackgroundColor(Color.parseColor("#ee97c7"));
                 tvUhrzeit.setTextColor(Color.parseColor("#000000"));
                 tvUhrzeit.setText(row.uhrzeit);
             }
 
             // Column 4 -> Info
             final EditText etInfo = new EditText(this);
-            etInfo.setSingleLine(true);
-
-            etInfo.setImeOptions(IME_ACTION_NEXT);
-
-
             etInfo.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             etInfo.setGravity(Gravity.CENTER);
             etInfo.setPadding(5, 15, 0, 15);
+
+            etInfo.setSingleLine(true);
+            etInfo.setImeOptions(IME_ACTION_DONE);
+
             if (i == -1) {
                 etInfo.setText("Info");
-                etInfo.setBackgroundColor(Color.parseColor("#D32F2F"));
+                etInfo.setBackgroundColor(Color.parseColor("#e6198b"));
                 etInfo.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 etInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
-            } else {
 
+            } else {
                 etInfo.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 etInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                etInfo.setBackgroundColor(Color.parseColor("#ffffff"));
+                etInfo.setBackgroundColor(Color.parseColor("#ee97c7"));
                 etInfo.setTextColor(Color.parseColor("#000000"));
                 etInfo.setText(row.info);
-
-            // Column 5 ->  kollege
             }
 
-
+            // Column 5 ->  kollege
             final TextView tvKollege = new TextView(this);
             tvKollege.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvKollege.setGravity(Gravity.CENTER);
             tvKollege.setPadding(5, 15, 0, 15);
+            tvKollege.setFocusable(true);
 
             if (i == -1) {
                 tvKollege.setText("Kollege");
-                tvKollege.setBackgroundColor(Color.parseColor("#D32F2F"));
+                tvKollege.setBackgroundColor(Color.parseColor("#e6198b"));
                 tvKollege.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tvKollege.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
-            } else {
 
+            } else {
                 tvKollege.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                 tvKollege.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                tvKollege.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvKollege.setBackgroundColor(Color.parseColor("#ee97c7"));
                 tvKollege.setTextColor(Color.parseColor("#000000"));
                 tvKollege.setText(row.kollegeName);
 
             }
 
-
-            etInfo.setNextFocusRightId(tvKollege.getId());
-
             // Column 6 -> vergehen
-
             final TextView tvVergehen = new TextView(this);
             tvVergehen.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvVergehen.setGravity(Gravity.CENTER);
@@ -279,14 +268,14 @@ public class VorfaelleTable extends AppCompatActivity {
 
             if (i == -1) {
                 tvVergehen.setText("Vergehen");
-                tvVergehen.setBackgroundColor(Color.parseColor("#D32F2F"));
+                tvVergehen.setBackgroundColor(Color.parseColor("#e6198b"));
                 tvVergehen.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tvVergehen.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
 
                 tvVergehen.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                 tvVergehen.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                tvVergehen.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvVergehen.setBackgroundColor(Color.parseColor("#ee97c7"));
                 tvVergehen.setTextColor(Color.parseColor("#000000"));
                 tvVergehen.setText(row.vergehenTitel);
             }
@@ -294,13 +283,14 @@ public class VorfaelleTable extends AppCompatActivity {
             // add table row
             final TableRow tableRow = new TableRow(this);
 
+
             //tableRow.setFocusableInTouchMode(true);
             tableRow.setId(i + 1);
             TableLayout.LayoutParams trParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
             trParams.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
             tableRow.setPadding(0, 0, 0, 0);
             tableRow.setLayoutParams(trParams);
-            tableRow.setBackgroundColor(Color.parseColor("#E64A19"));
+            tableRow.setBackgroundColor(Color.parseColor("#E64A19")); // orange
 
            // tableRow.addView(tvId);
             tableRow.addView(tvDatum);
@@ -336,13 +326,16 @@ public class VorfaelleTable extends AppCompatActivity {
                 TableLayout.LayoutParams trParamsSep = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
                 trParamsSep.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
                 trSep.setLayoutParams(trParamsSep);
+
                 TextView tvSep = new TextView(this);
                 TableRow.LayoutParams tvSepLay = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-                tvSepLay.span = 4;
+                tvSepLay.span = 5; // die Anzahl der Column
                 tvSep.setLayoutParams(tvSepLay);
-                tvSep.setBackgroundColor(Color.parseColor("#d9d9d9"));
-                tvSep.setHeight(2);
+                tvSep.setBackgroundColor(Color.parseColor("#d9d9d9")); //Gray
+                tvSep.setHeight(3);
+
                 trSep.addView(tvSep);
+
                 tableLayout.addView(trSep, trParamsSep);
             }
 
@@ -352,62 +345,21 @@ public class VorfaelleTable extends AppCompatActivity {
                 // KEY EVENT ist wictig !! von der Soft tastatur oder nicht
                 //Log.d("TAG", "activateAddButton" + keyEvent.toString());
 
-                Log.d( "vorfalle: ", "setOnEditorActionListener:  " + etInfo.getText());
-                tvKollege.requestFocus();
+                if (pos == EditorInfo.IME_ACTION_DONE || pos == EditorInfo.IME_ACTION_NEXT || pos == EditorInfo.IME_ACTION_GO ||
+                        (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    tvKollege.requestFocus();
 
-                return true;
-            });
+                    // your action here
+                    Log.d( "vorfalle: ", "setOnEditorActionListener:  " + etInfo.getText());
+                   // etInfo.focusSearch(View.FOCUS_RIGHT);
+                   // etInfo.requestFocus();
+                   // etInfo.setNextFocusRightId(tvKollege.getId());
+                    Log.d("vorfalle", "focusable ? " + tvKollege.isFocused());
 
-
-
-
-            //tvInfo.onEditorAction(ACTION_DOWN);
-
-            Log.d( "vorfalle: ", "__ " + etInfo.getText());
-
-            TextView.OnEditorActionListener exampleListener = new TextView.OnEditorActionListener(){
-                public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent event) {
-                    Log.d( "vorfalle: ", "OnEditorActionListener " + exampleView.getText());
-
-                    if (actionId == EditorInfo.IME_ACTION_NEXT
-                            && event.getAction() == KeyEvent.ACTION_DOWN) {
-
-                        Log.d("vorfalle", "adadadada");
-                    }
-
-
-                    Log.d( "vorfalle: ", "OnEditorActionListener " + exampleView.getText());
                     return true;
                 }
-            };
-
-           // etInfo.setOnEditorActionListener(exampleListener);
-/*
-                TextWatcher tw = new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        Log.d("vorfalle:", "TextWatcher");
-
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        Log.d("vorfalle:", "TextWatcher");
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        Log.d("vorfalle:", "TextWatcher");
-
-
-                    }
-                };
-                etInfo.addTextChangedListener(tw);*/
-
-
-
+                return true;
+            });
         }
 
     }
@@ -486,7 +438,7 @@ public class VorfaelleTable extends AppCompatActivity {
     }
 
 
-    //////////////////////////////////////    ////////////////////////////////////////
+    /** Hier wird die daten geladen, als Hintergrund process*/
 
     class LoadDataTask extends AsyncTask<Integer, Integer, String> {
 
@@ -495,13 +447,11 @@ public class VorfaelleTable extends AppCompatActivity {
         protected String doInBackground(Integer... params) {
 
             try {
-
                 Thread.sleep(1000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             return "Task Completed.";
 
         }
@@ -509,7 +459,6 @@ public class VorfaelleTable extends AppCompatActivity {
         @Override
 
         protected void onPostExecute(String result) {
-
             mProgressBar.hide();
             loadData();
         }

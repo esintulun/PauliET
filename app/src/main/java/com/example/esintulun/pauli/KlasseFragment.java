@@ -81,9 +81,11 @@ public class KlasseFragment extends Fragment {
                 String vergehensTitle = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
                 // RUHE MODUS von der App
-                Intent pause = new Intent(getActivity(), PauseActivity.class);
-                pause.putExtra("schueler", schueler);
-                pause.putExtra("vergehen", vergehensTitle);
+                //Intent pause = new Intent(getActivity(), PauseActivity.class);
+
+                Intent schuelerVergehen = new Intent(getActivity(), SchuelerVergehenInfo.class);
+                schuelerVergehen.putExtra("schuelername", schueler);
+                schuelerVergehen.putExtra("vergehenstitel", vergehensTitle);
 
                 Log.d("daten: ", "klasse Fragment  " + schueler + " " + vergehensTitle); // ok
 
@@ -91,7 +93,7 @@ public class KlasseFragment extends Fragment {
                 //vorfaelleListView.putExtra("name", nameExtra);
                 //vorfaelleListView.putExtra("vorfall", vorfall);
                 //vorfaelleListView.putExtra("merkblatt", schuelerMerkblatt);
-                startActivity(pause);
+                startActivity(schuelerVergehen);
                // getActivity().finish();
 
 

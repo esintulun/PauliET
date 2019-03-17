@@ -20,8 +20,8 @@
             android:layout_alignParentLeft="true"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimary"
-            android:textColorLink="@android:color/holo_red_light"
+            android:textColor="@android:color/darker_gray"
+            android:textColorLink="@android:color/holo_green_dark"
             android:textSize="18sp" />
 
         <CheckBox

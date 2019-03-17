@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.hamburger);
         setContentView(R.layout.activity_main);
+
 
         goDrawer();
     }
@@ -37,17 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onDrawerSlide(View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
                     }
 
                     @Override
                     public void onDrawerOpened(View drawerView) {
-                        // Respond when the drawer is opened
                     }
 
                     @Override
                     public void onDrawerClosed(View drawerView) {
-                        // Respond when the drawer is closed
                     }
 
                     @Override
@@ -75,24 +74,30 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(vergehenActivity);
                                 return true;
 
+                            case R.id.nav_klassen:
+                                Intent klassenActivity = new Intent(MainActivity.this, KlassenActivity.class);
+                                klassenActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(klassenActivity);
+                                return true;
+
                             case R.id.nav_schuelerVorfaelle:
-                                Intent schuelerVorfaelleTable = new Intent(MainActivity.this, VorfaelleTable.class);
+                                Intent schuelerVorfaelleTable = new Intent(MainActivity.this, VorfaelleTableActivity.class);
                                 schuelerVorfaelleTable.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(schuelerVorfaelleTable);
                                 return true;
 
-
-                                /*
-                            case R.id.nav_schulleiter:
-                                return true;
                             case R.id.nav_camera:
+                                // Version 4 ok
                                 //Intent intentCamera = new Intent(MainActivity.this, CameraTest.class);
-                                Intent intentCamera = new Intent(MainActivity.this, Cameratest2.class);
+                                Intent intentCamera = new Intent(MainActivity.this, Cameratest2Activity.class);
+                                //Intent intentCamera = new Intent(MainActivity.this, Camera2.class);
 
                                 //Intent intentCamera = new Intent(MainActivity.this, CameraActivity.class);
                                 intentCamera.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intentCamera);
                                 return true;
+
+
                             case R.id.nav_statistics:
                                 //Intent intentCamera = new Intent(MainActivity.this, CameraTest.class);
                                 Intent statistics = new Intent(MainActivity.this, Statistics.class);
@@ -101,9 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_mailsend:
                                 //Intent intentCamera = new Intent(MainActivity.this, CameraTest.class);
-                                Intent mailsend = new Intent(MainActivity.this, SendMailActivity.class);
+                                //Intent mailsend = new Intent(MainActivity.this, SendMailActivity.class);
+                                Intent mailsend = new Intent(MainActivity.this, EmailSendActivity.class);
+
                                 startActivity(mailsend);
-                                return true;*/
+                                return true;
                         }
 
                         // set item as selected to persist highlight
@@ -140,5 +147,6 @@ public class MainActivity extends AppCompatActivity {
         //getMenuInflater().inflate(R.menu.menu_logout, menu);
         return true;
     }
+
 
 }

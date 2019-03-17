@@ -49,7 +49,7 @@ public class VergehenActivity extends AppCompatActivity {
                 String vergehenTitle = (String) adapterView.getItemAtPosition(position);
                 Long clickId = adapterView.getSelectedItemId();
 
-                if(id==2){
+                if(id==2 || id == 4){
                     Log.i("click","2 geklickt " + id);
 
                     // Intent erzeugen und Starten der KlasseFragment mit explizitem Intent
