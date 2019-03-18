@@ -30,11 +30,11 @@ public class SchuelerVergehenDataSource {
         dbHelper = new SchuelerVergehenDbHelper(context);
     }
 
-    public SchuelerVergehen createSchuelerVergehen(String product, String quantity) {
+    public SchuelerVergehen createSchuelerVergehen(String name, String vergehen) {
 
         ContentValues values = new ContentValues();
-        values.put(SchuelerVergehenDbHelper.COLUMN_NAME, product);
-        values.put(SchuelerVergehenDbHelper.COLUMN_VERGEHEN, quantity);
+        values.put(SchuelerVergehenDbHelper.COLUMN_NAME, name);
+        values.put(SchuelerVergehenDbHelper.COLUMN_VERGEHEN, vergehen);
 
         //INSERT INTO table_name (column1, column2, column3, ...)
         //VALUES (value1, value2, value3, ...);
@@ -43,6 +43,7 @@ public class SchuelerVergehenDataSource {
         Cursor cursor = database.query(SchuelerVergehenDbHelper.TABLE_SCHUELERVERGEHEN_LIST, columns,
                 SchuelerVergehenDbHelper.COLUMN_ID + "=" + insertId, null, null, null, null);
 
+        Log.d("db:", "-- "+  name + " " +vergehen);
         cursor.moveToFirst();
         SchuelerVergehen shoppingMemo = cursorToSchuelerVergehen(cursor);
         cursor.close();
@@ -77,6 +78,7 @@ public class SchuelerVergehenDataSource {
     }
 
     private SchuelerVergehen cursorToSchuelerVergehen(Cursor cursor) {
+
         int idIndex = cursor.getColumnIndex(SchuelerVergehenDbHelper.COLUMN_ID);
         int idName = cursor.getColumnIndex(SchuelerVergehenDbHelper.COLUMN_NAME);
         int idvergehen = cursor.getColumnIndex(SchuelerVergehenDbHelper.COLUMN_VERGEHEN);
@@ -95,21 +97,21 @@ public class SchuelerVergehenDataSource {
 
     public List<SchuelerVergehen> getAllShoppingMemos() {
 
-        List<SchuelerVergehen> shoppingMemoList = new ArrayList<>();
+        List<SchuelerVergehen> SchuelerVergehenList = new ArrayList<>();
 
         Cursor cursor = database.query(SchuelerVergehenDbHelper.TABLE_SCHUELERVERGEHEN_LIST, columns,
                 null, null, null, null, null);
         cursor.moveToFirst();
-        SchuelerVergehen shoppingMemo;
+        SchuelerVergehen schuelerVergehen;
 
         while (!cursor.isAfterLast()) {
-            shoppingMemo = cursorToSchuelerVergehen(cursor);
-            shoppingMemoList.add(shoppingMemo);
-            Log.d(TAG, "ID: " + shoppingMemo.getId() + ", Inhalt: " + shoppingMemo.toString());
+            schuelerVergehen = cursorToSchuelerVergehen(cursor);
+            SchuelerVergehenList.add(schuelerVergehen);
+            Log.d(TAG, "ID: " + schuelerVergehen.getId() + ", Inhalt: " + schuelerVergehen.toString());
             cursor.moveToNext();
         }
         cursor.close();
-        return shoppingMemoList;
+        return SchuelerVergehenList;
     }
 
 

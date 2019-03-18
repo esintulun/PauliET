@@ -4,7 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
     tools:context="com.example.esintulun.pauli.SchuelerVergehenDBDaten">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="die daten"
+        app:layout_constraintStart_toStartOf="@+id/listview_schuelervergehen"
+        app:layout_constraintTop_toTopOf="@+id/listview_schuelervergehen" />
 
     <ListView
         android:id="@+id/listview_schuelervergehen"

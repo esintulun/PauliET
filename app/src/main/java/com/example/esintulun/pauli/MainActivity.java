@@ -89,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_camera:
                                 // Version 4 ok
                                 //Intent intentCamera = new Intent(MainActivity.this, CameraTest.class);
-                                Intent intentCamera = new Intent(MainActivity.this, Cameratest2Activity.class);
+                                //Intent intentCamera = new Intent(MainActivity.this, Cameratest2Activity.class);
+                                Intent intentCamera = new Intent(MainActivity.this, Kamera.class);
+
                                 //Intent intentCamera = new Intent(MainActivity.this, Camera2.class);
 
                                 //Intent intentCamera = new Intent(MainActivity.this, CameraActivity.class);

@@ -34,18 +34,58 @@ public class SchuelerVergehenDBDaten extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schueler_vergehen_dbdaten);
+        Log.d("DB...", "---- vor  " );
 
         schuelerVergehenDataSource = new SchuelerVergehenDataSource(this);
+        schuelerVergehenDataSource.open();
+        initializeShoppingMemosListView();
+        create();
 
+        Log.d("DB...", "nachhhh " );
+
+
+
+    }
+    private void initializeShoppingMemosListView() {
+        Log.d("DB...", "initializeShoppingMemosListView .. getView: " );
+
+
+        List<SchuelerVergehen> emptyListForInitilisation = new ArrayList<>();
+        schuelerVergehenListView = findViewById(R.id.listview_schuelervergehen);
+        ArrayAdapter<SchuelerVergehen> shoppingMemoArrayAdapter = new ArrayAdapter<SchuelerVergehen>(this,
+                android.R.layout.simple_list_item_multiple_choice, emptyListForInitilisation){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+                View view = super.getView(position,convertView,parent);
+                TextView textView = (TextView)view;
+
+                SchuelerVergehen memo = (SchuelerVergehen) schuelerVergehenListView.getItemAtPosition(position);
+                Log.d("DB...", "ArrayAdapter .. getView: " + position + " : " + memo.toString());
+
+                if(memo.isChecked()){
+                    textView.setPaintFlags(textView.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+                    textView.setTextColor(Color.rgb(175,175,175));
+                }else{
+                    textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    textView.setTextColor(Color.DKGRAY);
+                }
+
+                return view;
+            }
+        };
+
+        schuelerVergehenListView.setAdapter(shoppingMemoArrayAdapter);
+
+    }
+    private void create() {
+        Log.d("DB...", "create: " );
 
         Bundle extras = getIntent().getExtras();
         schuelerName = extras.getString("schuelername");
-        schuelerVergehensTitel = extras.getString("vergehenstitel");
-
-
+        schuelerVergehensTitel = extras.getString("vergehen");
         schuelerVergehenDataSource.createSchuelerVergehen(schuelerName, schuelerVergehensTitel);
-
-
         schuelerVergehenListView = findViewById(R.id.listview_schuelervergehen);
         List<SchuelerVergehen> emptyListForInitilisation = new ArrayList<>();
 
@@ -60,7 +100,7 @@ public class SchuelerVergehenDBDaten extends AppCompatActivity {
                 TextView textView = (TextView)view;
 
                 SchuelerVergehen schuelerVergehen = (SchuelerVergehen) schuelerVergehenListView.getItemAtPosition(position);
-                Log.d("DB", "ArrayAdapter .. getView: " + position + " : " + schuelerVergehen.toString());
+                Log.d("DB...", "ArrayAdapter .. getView: " + position + " : " + schuelerVergehen.toString());
 
                 if(schuelerVergehen.isChecked()){
                     textView.setPaintFlags(textView.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
@@ -75,7 +115,7 @@ public class SchuelerVergehenDBDaten extends AppCompatActivity {
         };
 
         schuelerVergehenListView.setAdapter(shoppingMemoArrayAdapter);
-
+        showAllListEntries();
 
     }
 
@@ -83,7 +123,7 @@ public class SchuelerVergehenDBDaten extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("db", "Datenquelle wird geöffnet");
+        Log.d("db:", "Datenquelle wird geöffnet");
         schuelerVergehenDataSource.open();
         //showAllListEntries();
     }
@@ -91,8 +131,17 @@ public class SchuelerVergehenDBDaten extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("db", "Datenquelle wird geschlossen.");
+        Log.d("db:", "Datenquelle wird geschlossen.");
         schuelerVergehenDataSource.close();
+    }
+
+
+    private void showAllListEntries() {
+        List<SchuelerVergehen> shoppingMemoList = schuelerVergehenDataSource.getAllShoppingMemos();
+        ArrayAdapter<SchuelerVergehen> adapter = (ArrayAdapter<SchuelerVergehen>) schuelerVergehenListView.getAdapter();
+        adapter.clear();
+        adapter.addAll(shoppingMemoList);
+        adapter.notifyDataSetChanged();
     }
    /* private void activateAddButton() {
 
