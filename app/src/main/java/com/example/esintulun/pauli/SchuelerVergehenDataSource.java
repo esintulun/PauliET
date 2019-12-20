@@ -95,9 +95,9 @@ public class SchuelerVergehenDataSource {
         return shoppingMemo;
     }
 
-    public List<SchuelerVergehen> getAllShoppingMemos() {
+    public List<SchuelerVergehen> getAllSchuelerVergehens() {
 
-        List<SchuelerVergehen> SchuelerVergehenList = new ArrayList<>();
+        List<SchuelerVergehen> schuelerVergehenList = new ArrayList<>();
 
         Cursor cursor = database.query(SchuelerVergehenDbHelper.TABLE_SCHUELERVERGEHEN_LIST, columns,
                 null, null, null, null, null);
@@ -106,12 +106,12 @@ public class SchuelerVergehenDataSource {
 
         while (!cursor.isAfterLast()) {
             schuelerVergehen = cursorToSchuelerVergehen(cursor);
-            SchuelerVergehenList.add(schuelerVergehen);
+            schuelerVergehenList.add(schuelerVergehen);
             Log.d(TAG, "ID: " + schuelerVergehen.getId() + ", Inhalt: " + schuelerVergehen.toString());
             cursor.moveToNext();
         }
         cursor.close();
-        return SchuelerVergehenList;
+        return schuelerVergehenList;
     }
 
 
