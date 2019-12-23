@@ -111,7 +111,7 @@
         android:layout_marginBottom="71dp"
         android:layout_weight="1"
         android:onClick="gotoDBDaten"
-        android:text="Goto DB"
+        android:text="speichern"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll3" />
