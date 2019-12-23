@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 
+import com.example.esintulun.pauli.paulirot.Debug_Main;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
                             case android.R.id.home:
                                 mDrawerLayout.openDrawer(GravityCompat.START);
                                 return true;
+
+                            case R.id.nav_uebersicht:
+                                Intent uebersichtActivity = new Intent(MainActivity.this, Debug_Main.class);
+                                uebersichtActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(uebersichtActivity);
+                                return true;
+
                             case R.id.nav_start:
                                 Intent vergehenActivity = new Intent(MainActivity.this, VergehenActivity.class);
                                 vergehenActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

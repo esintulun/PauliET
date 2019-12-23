@@ -29,6 +29,8 @@
         <activity android:name=".Camera2" />
         <activity android:name=".EmailSendActivity" />
         <activity android:name=".KlassenActivity" />
+        <activity android:name=".paulirot.Debug_Main" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,9 +3,14 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_uebersicht"
+            android:icon="@android:drawable/btn_default"
+            android:title="Start" />
+
+        <item
             android:id="@+id/nav_start"
             android:icon="@android:drawable/star_on"
-            android:title="Start" />
+            android:title="Notiz" />
 
         <item
             android:id="@+id/nav_klassen"
